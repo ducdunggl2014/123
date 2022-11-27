@@ -1,6 +1,6 @@
 function submitLogin() {
-  let email = document.getElementById("inputEmail").value;
-  let password = document.getElementById("inputPassword").value;
+  let email = $("#inputEmail").val();
+  let password = $("#inputPassword").val();
   console.log("submitLogin: email = ", email);
   console.log("submitLogin: password = ", password);
 
@@ -8,7 +8,23 @@ function submitLogin() {
   sessionStorage.setItem("password", password);
 
   // console.log("email = " + sessionStorage.getItem("email"));
-  window.location.replace("index.html");
+
+  $.post("https://codelaghien.club/web/login.asp", {
+    username: email,
+    password: password,
+  })
+    .done(function (returnData) {
+      const myData = JSON.parse(returnData);
+      console.log(myData);
+      if (myData["secret-key"]) {
+        window.location.replace("index.html");
+      } else {
+        alert("Invalid password!");
+      }
+    })
+    .fail(function (xhr, status, error) {
+      console.log(error);
+    });
 }
 
 function logout() {
