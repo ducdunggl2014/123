@@ -1,8 +1,10 @@
 window.onload = function () {
-  // window.location.replace("google.com.vn");
-  console.log("window.onload");
-  const email = sessionStorage.getItem("email");
-  if (!email || email === "") {
-    window.location.replace("login.html");
-  }
+	const email = sessionStorage.getItem('email');
+	// console.log('email', email);
+	if (!email || email === '') {
+		window.location.replace('login.html');
+	}
+	if ($('#loginAs')) {
+		$('#loginAs').html(email);
+	}
 };
